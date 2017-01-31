@@ -9,11 +9,84 @@
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+
+    <script src="dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="dist/sweetalert.css">  
+
+    <style>
+        .troopin {
+            width: 20em;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+    </style>
+
+    <script>
+        function isInt(value) {
+  return !isNaN(value) && 
+         parseInt(Number(value)) == value && 
+         !isNaN(parseInt(value, 10));
+}
+
+        function calculate() {
+            var val1 = document.getElementById("player1").value;
+            var val2 = document.getElementById("player2").value;
+
+            if (isInt(val1) && isInt(val2)) {
+                val1 = parseInt(val1);
+                val2 = parseInt(val2);
+
+                if (val1 > 0 && val2 > 0) {
+                    var total = val1 + val2;
+
+                    var rand = Math.floor(Math.random() * total) + 1;
+
+                    if (rand <= val1) {
+                        swal("Player 1 Wins!", "They lost " + rand + " troop(s)");
+                    } else {
+                        swal("Player 2 Wins!", "They lost " + (rand - val1) + " troop(s)");
+                    }
+
+                    return;
+                }
+            } 
+
+            swal({
+                title: "Error!",
+                text: "You must enter a number greater than 0!",
+                type: "error",
+                confirmButtonText: "Ok"
+            }); 
+        }
+    </script>
 </head>
 
 <body>
-    <div class="col s12">
-        <h2>Commanders RNG</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <h2 style="text-align: center; padding-top: 1em; padding-bottom: 1.5em;">Commanders RNG</h2>
+            </div>
+
+            <div class="input-field col s6 troopin">
+                <div class="troopin">
+                    <input id="player1" type="text" class="validate">
+                    <label class="active" for="player1">Player 1 Troop Count</label>
+                </div>
+            </div>
+
+            <div class="input-field col s6">
+                <div class="troopin">
+                    <input id="player2" type="text" class="validate">
+                    <label class="active" for="player2">Player 2 Troop Count</label>
+                 </div>
+            </div>
+
+            <div class="col s12" style="text-align: center; padding-top: 1em;">
+                <a class="waves-effect waves-light btn" onclick="calculate();">Calculate</a>
+            </div>
+        </div>
     </div>
 </body>
 
